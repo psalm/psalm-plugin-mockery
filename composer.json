@@ -1,0 +1,39 @@
+{
+    "name": "psalm/plugin-mockery",
+    "description": "Psalm plugin for Mockery",
+    "type": "psalm-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matt Brown",
+            "email": "github@muglug.com"
+        }
+    ],
+    "require": {
+        "mockery/mockery": "^0.9 || ^1.0",
+        "vimeo/psalm": "^3.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.3"
+    },
+    "extra": {
+        "psalm": {
+            "pluginClass": "Psalm\\MockeryPlugin\\Plugin"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Psalm\\MockeryPlugin\\": ["."]
+        }
+    },
+    "scripts" : {
+        "check": [
+            "@cs-check",
+            "@test",
+            "@analyze"
+        ],
+        "analyze": "psalm",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf"
+    }
+}
