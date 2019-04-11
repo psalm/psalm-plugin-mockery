@@ -51,7 +51,16 @@ class MockReturnTypeUpdater implements Hook\AfterMethodCallAnalysisInterface
                 && $first_arg->right instanceof PhpParser\Node\Scalar\String_
                 && $first_arg->right->value[0] === '['
             ) {
-                $fq_class_name = $first_arg->left->class->getAttribute('resolvedName');
+                /** @var PhpParser\Node\Expr\ClassConstFetch $left */
+                $left = $first_arg->left;
+                $fq_class_name = $left->class->getAttribute('resolvedName');
+            } elseif ($first_arg instanceof PhpParser\Node\Scalar\String_) {
+                $bracket_position = strpos($first_arg->value, '[');
+                $fq_class_name = substr(
+                    $first_arg->value,
+                    0,
+                    $bracket_position === false ? strlen($first_arg->value) : $bracket_position
+                );
             }
 
             if ($fq_class_name) {

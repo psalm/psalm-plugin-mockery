@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
 
 namespace
 {
@@ -11,7 +12,9 @@ namespace
          *
          * @return \Mockery\Mock
          */
-        public static function mock(...$args) {}
+        public static function mock(...$args)
+        {
+        }
 
         /**
          * Static and semantic shortcut for getting a mock from the container
@@ -21,7 +24,9 @@ namespace
          *
          * @return \Mockery\MockInterface
          */
-        public static function spy(...$args) {}
+        public static function spy(...$args)
+        {
+        }
 
         /**
          * Return instance of ANYOF matcher.
@@ -30,7 +35,9 @@ namespace
          *
          * @return \Mockery\Matcher\AnyOf
          */
-        public static function anyOf(...$args) {}
+        public static function anyOf(...$args)
+        {
+        }
 
         /**
          * Return instance of NOTANYOF matcher.
@@ -39,7 +46,9 @@ namespace
          *
          * @return \Mockery\Matcher\NotAnyOf
          */
-        public static function notAnyOf(...$args) {}
+        public static function notAnyOf(...$args)
+        {
+        }
     }
 }
 
@@ -59,17 +68,23 @@ namespace Mockery
          *
          * @return \Mockery\ExpectationInterface&static
          */
-        public function shouldReceive(...$methodNames) {}
+        public function shouldReceive(...$methodNames)
+        {
+        }
 
         /**
          * @return static
          */
-        public function makePartial() {}
+        public function makePartial()
+        {
+        }
 
         /**
          * @return static
          */
-        public function shouldAllowMockingProtectedMethods() {}
+        public function shouldAllowMockingProtectedMethods()
+        {
+        }
     }
 
     /**
@@ -239,7 +254,9 @@ namespace Mockery
          * @param mixed ...$args
          * @return static
          */
-        public function andReturn(...$args) {}
+        public function andReturn(...$args)
+        {
+        }
 
         /**
          * Expected argument setter for the expectation
@@ -259,6 +276,10 @@ namespace Mockery
          * @param array|\Closure $argsOrClosure
          * @return static
          */
-        public function withArgs($argsOrClosure) {}
+        public function withArgs($argsOrClosure)
+        {
+        }
     }
 }
+
+// phpcs:enable

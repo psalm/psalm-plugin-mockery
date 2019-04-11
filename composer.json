@@ -14,7 +14,11 @@
         "vimeo/psalm": "^3.0.2"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.3"
+        "codeception/base": "^2.5",
+        "muglug/package-versions-56": "^1.2",
+        "squizlabs/php_codesniffer": "^3.3.1",
+        "weirdan/codeception-psalm-module": "^0.2.1",
+        "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0"
     },
     "extra": {
         "psalm": {
@@ -26,6 +30,11 @@
             "Psalm\\MockeryPlugin\\": ["."]
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Psalm\\MockeryPlugin\\Tests\\": ["tests/_support"]
+        }
+    },
     "scripts" : {
         "check": [
             "@cs-check",
@@ -33,7 +42,8 @@
             "@analyze"
         ],
         "analyze": "psalm",
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf"
+        "cs-check": "phpcs -s",
+        "cs-fix": "phpcbf",
+        "test": "codecept run -v"
     }
 }
