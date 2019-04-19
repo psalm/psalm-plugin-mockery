@@ -9,7 +9,7 @@ namespace
          *
          * @param mixed ...$args
          *
-         * @return \Mockery\Mock
+         * @return \Mockery\MockInterface
          */
         public static function mock(...$args) {}
 
