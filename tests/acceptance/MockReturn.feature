@@ -48,3 +48,26 @@ Feature: MockReturn
       | DocblockTypeContradiction | Cannot resolve types for $user - docblock-defined type Mockery\MockInterface&NS\User does not contain array<%, mixed> |
     And I see no other errors
     
+  Scenario: Alias class mocking is recognized
+    Given I have the following code
+      """
+      class User
+      {
+      }
+      
+      $user = Mockery::mock('alias:NS\User')->shouldReceive('someMethod');
+      """
+    When I run Psalm
+    Then I see no errors
+
+  Scenario: Overload class mocking is recognized
+    Given I have the following code
+      """
+      class User
+      {
+      }
+      
+      $user = Mockery::mock('overload:NS\User')->shouldReceive('someMethod');
+      """
+    When I run Psalm
+    Then I see no errors
