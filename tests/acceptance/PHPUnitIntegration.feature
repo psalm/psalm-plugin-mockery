@@ -1,5 +1,5 @@
 Feature: PHPUnitIntegration
-  
+
   Background:
     Given I have the following config
       """
@@ -20,22 +20,23 @@ Feature: PHPUnitIntegration
       namespace NS;
       use Mockery;
       use PHPUnit\Framework\TestCase;
-      
+
       """
-    
+
   Scenario: Mockery trait does not cause Psalm to throw fatal error
     Given I have the following code
       """
+      /** @psalm-suppress PropertyNotSetInConstructor */
       class MyTestCase extends TestCase
       {
           use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-      
+
           /**
            * @return void
            */
           public function testSomething()
           {
-          
+
           }
       }
       """
