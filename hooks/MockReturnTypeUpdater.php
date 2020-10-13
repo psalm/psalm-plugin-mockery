@@ -77,7 +77,5 @@ class MockReturnTypeUpdater implements Hook\AfterMethodCallAnalysisInterface
                 }
             }
         }
-
-        return null;
     }
 }
