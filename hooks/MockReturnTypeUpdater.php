@@ -20,8 +20,6 @@ class MockReturnTypeUpdater implements Hook\AfterMethodCallAnalysisInterface
      * @param  Context              $context
      * @param  string[]             $suppressed_issues
      * @param  FileManipulation[]   $file_replacements
-     *
-     * @return null
      */
     public static function afterMethodCallAnalysis(
         PhpParser\Node\Expr $expr,
@@ -33,7 +31,7 @@ class MockReturnTypeUpdater implements Hook\AfterMethodCallAnalysisInterface
         Codebase $codebase,
         array &$file_replacements = [],
         Type\Union &$return_type_candidate = null
-    ) {
+    ) : void {
         if ($return_type_candidate && $method_id === 'Mockery::mock' && isset($expr->args[0])) {
             $first_arg = $expr->args[0]->value;
 
