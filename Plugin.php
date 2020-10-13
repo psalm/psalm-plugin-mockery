@@ -7,8 +7,7 @@ use Psalm\Plugin\RegistrationInterface;
 
 class Plugin implements PluginEntryPointInterface
 {
-    /** @return void */
-    public function __invoke(RegistrationInterface $registration, SimpleXMLElement $config = null)
+    public function __invoke(RegistrationInterface $registration, SimpleXMLElement $config = null) : void
     {
         $registration->addStubFile(__DIR__ . '/stubs/Mockery.php');
 
