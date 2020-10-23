@@ -24,6 +24,6 @@ class Plugin implements PluginEntryPointInterface
         }
 
         require_once __DIR__ . '/hooks/MockReturnTypeUpdater.php';
-        $registration->registerHooksFromClass(Hooks\MockReturnTypeUpdater::class);
+        $registration->registerHooksFromClass(hooks\MockReturnTypeUpdater::class);
     }
 }

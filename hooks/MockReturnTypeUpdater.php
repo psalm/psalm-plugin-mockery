@@ -1,6 +1,6 @@
 <?php
 
-namespace Psalm\MockeryPlugin\Hooks;
+namespace Psalm\MockeryPlugin\hooks;
 
 use PhpParser;
 use Psalm\Codebase;
