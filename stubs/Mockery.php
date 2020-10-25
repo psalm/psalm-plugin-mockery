@@ -128,6 +128,9 @@ namespace Mockery
         public function shouldAllowMockingProtectedMethods();
     }
 
+    /**
+     * @mixin \Mockery\Expectation
+     */
     interface ExpectationInterface
     {
         /**
