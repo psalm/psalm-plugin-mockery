@@ -23,7 +23,7 @@ class Plugin implements PluginEntryPointInterface
             $registration->addStubFile(__DIR__ . '/stubs/Mockery/AssertPostConditionsV8.php');
         }
 
-        require_once __DIR__ . '/hooks/MockReturnTypeUpdater.php';
+        require_once __DIR__ . '/Hooks/MockReturnTypeUpdater.php';
         $registration->registerHooksFromClass(Hooks\MockReturnTypeUpdater::class);
     }
 }
