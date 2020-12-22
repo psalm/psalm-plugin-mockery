@@ -6,7 +6,7 @@ namespace Psalm\MockeryPlugin\Tests;
  * Inherited Methods
  * @method void wantToTest($text)
  * @method void wantTo($text)
- * @method \Codeception\Actor execute($callable)
+ * @method static execute($callable)
  * @method void expectTo($prediction)
  * @method void expect($prediction)
  * @method void amGoingTo($argumentation)
