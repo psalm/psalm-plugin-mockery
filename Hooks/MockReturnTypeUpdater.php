@@ -31,18 +31,20 @@ class MockReturnTypeUpdater implements Hook\AfterMethodCallAnalysisInterface
         Codebase $codebase,
         array &$file_replacements = [],
         Type\Union &$return_type_candidate = null
-    ) : void {
+    ): void {
         if ($return_type_candidate && $method_id === 'Mockery::mock' && isset($expr->args[0])) {
             $first_arg = $expr->args[0]->value;
 
             $fq_class_name = null;
 
-            if ($first_arg instanceof PhpParser\Node\Expr\ClassConstFetch
+            if (
+                $first_arg instanceof PhpParser\Node\Expr\ClassConstFetch
                 && $first_arg->name instanceof PhpParser\Node\Identifier
                 && $first_arg->name->name === 'class'
             ) {
                 $fq_class_name = $first_arg->class->getAttribute('resolvedName');
-            } elseif ($first_arg instanceof PhpParser\Node\Expr\BinaryOp\Concat
+            } elseif (
+                $first_arg instanceof PhpParser\Node\Expr\BinaryOp\Concat
                 && $first_arg->left instanceof PhpParser\Node\Expr\ClassConstFetch
                 && $first_arg->left->name instanceof PhpParser\Node\Identifier
                 && $first_arg->left->name->name === 'class'

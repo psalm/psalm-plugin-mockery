@@ -1,5 +1,7 @@
 <?php
+
 namespace Psalm\MockeryPlugin\Tests;
+
 /**
  * Inherited Methods
  * @method void wantToTest($text)
@@ -18,6 +20,7 @@ namespace Psalm\MockeryPlugin\Tests;
 class AcceptanceTester extends \Codeception\Actor
 {
     use _generated\AcceptanceTesterActions;
+
    /**
     * Define custom actions here
     */
