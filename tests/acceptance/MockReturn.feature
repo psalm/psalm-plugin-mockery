@@ -45,7 +45,7 @@ Feature: MockReturn
     When I run Psalm
     Then I see these errors
       | Type            | Message                                                                                                                                 |
-      | DocblockTypeContradiction | Cannot resolve types for $user - docblock-defined type Mockery\MockInterface&NS\User does not contain array<%, mixed> |
+      | DocblockTypeContradiction | Docblock-defined type Mockery\MockInterface&NS\User for $user is never array |
     And I see no other errors
 
   Scenario: Alias class mocking is recognized
