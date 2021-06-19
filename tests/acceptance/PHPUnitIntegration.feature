@@ -40,7 +40,7 @@ Feature: PHPUnitIntegration
           }
       }
       """
-    And I have Mockery newer than "0.9.99" (because of "Trait added in Mockery 1.0")
+    And I have the "mockery/mockery" package satisfying the "^1.0"
     When I run Psalm
     Then I see no errors
 
@@ -59,6 +59,6 @@ Feature: PHPUnitIntegration
             }
         }
         """
-      And I have Mockery older than "1.0" (because of "Traits were added in Mockery 1.0")
+      And I have the "mockery/mockery" package satisfying the "< 1.0"
       When I run Psalm
       Then I see no errors
