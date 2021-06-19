@@ -47,6 +47,7 @@ Feature: PHPUnitIntegration
   Scenario: Plugin stubs don't conflict with Mockery 0.9.x
       Given I have the following code
         """
+        /** @psalm-suppress PropertyNotSetInConstructor */
         class MyTestCase extends TestCase
         {
             /**
