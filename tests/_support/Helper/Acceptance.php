@@ -1,5 +1,7 @@
 <?php
+
 namespace Psalm\MockeryPlugin\Tests\Helper;
+
 use Codeception\Exception\Skip;
 use Codeception\Exception\TestRuntimeException;
 use Composer\Semver\Comparator;
@@ -7,12 +9,13 @@ use Composer\Semver\VersionParser;
 use Muglug\PackageVersions\Versions as LegacyVersions;
 use PackageVersions\Versions as Versions;
 use RuntimeException;
+
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 class Acceptance extends \Codeception\Module
 {
-    /** @var array<string,string */
-    const VERSION_OPERATORS = [
+    /** @var array<string,string> */
+    private const VERSION_OPERATORS = [
         'newer than' => '>',
         'older than' => '<',
     ];
