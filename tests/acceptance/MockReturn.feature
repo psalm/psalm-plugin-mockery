@@ -19,7 +19,7 @@ Feature: MockReturn
       <?php
       namespace NS;
       use Mockery;
-      
+
       """
 
   Scenario: Defined method mocking sets proper intersection return type
@@ -32,20 +32,20 @@ Feature: MockReturn
            */
           public function someMethod()
           {
-          
+
           }
       }
-      
+
       $user = Mockery::mock('NS\User[someMethod]', []);
-      
+
       if (is_array($user)) {
-      
+
       }
       """
     When I run Psalm
     Then I see these errors
-      | Type            | Message                                                                                                                                 |
-      | DocblockTypeContradiction | Cannot resolve types for $user - docblock-defined type Mockery\MockInterface&NS\User does not contain array<%, mixed> |
+      | Type                      | Message                                                                                                   |
+      | DocblockTypeContradiction | / type Mockery\\MockInterface&NS\\User (does not contain array<[^,]+, mixed>\|for \$user is never array)/ |
     And I see no other errors
 
   Scenario: Alias class mocking is recognized
@@ -55,7 +55,7 @@ Feature: MockReturn
       {
       }
 
-      $user = Mockery::mock('alias:NS\User')->shouldReceive('someMethod');
+      $_user = Mockery::mock('alias:NS\User')->shouldReceive('someMethod');
       """
     When I run Psalm
     Then I see no errors
@@ -67,7 +67,7 @@ Feature: MockReturn
       {
       }
 
-      $user = Mockery::mock('overload:NS\User')->shouldReceive('someMethod');
+      $_user = Mockery::mock('overload:NS\User')->shouldReceive('someMethod');
       """
     When I run Psalm
     Then I see no errors
