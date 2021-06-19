@@ -2,13 +2,13 @@
 
 namespace Psalm\MockeryPlugin\Tests\Helper;
 
-use Codeception\Exception\Skip;
 use Codeception\Exception\TestRuntimeException;
 use Composer\Semver\Comparator;
 use Composer\Semver\VersionParser;
 use Muglug\PackageVersions\Versions as LegacyVersions;
 use PackageVersions\Versions as Versions;
 use RuntimeException;
+use PHPUnit\Framework\SkippedTestError;
 
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
@@ -39,7 +39,8 @@ class Acceptance extends \Codeception\Module
         $result = Comparator::compare($currentVersion, $op, $version);
         $this->debug("Comparing $currentVersion $op $version => $result");
         if (!$result) {
-            throw new Skip("This scenario requires Mockery $op $version because of $reason");
+            /** @psalm-suppress InternalClass,InternalMethod */
+            throw new SkippedTestError("This scenario requires Mockery $op $version because of $reason");
         }
     }
 
