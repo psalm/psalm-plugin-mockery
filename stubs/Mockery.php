@@ -1,4 +1,5 @@
 <?php
+
 // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
 
 namespace
@@ -101,7 +102,7 @@ namespace Mockery
          * @return \Mockery\ExpectationInterface&static
          */
         public function shouldReceive(...$methodNames);
-        
+
         /**
          * @param mixed $something  String method name (optional)
          * @return \Mockery\ExpectationInterface&static

@@ -1,10 +1,12 @@
 <?php
+
 namespace Psalm\MockeryPlugin\Tests;
+
 /**
  * Inherited Methods
  * @method void wantToTest($text)
  * @method void wantTo($text)
- * @method \Codeception\Actor execute($callable)
+ * @method static execute($callable)
  * @method void expectTo($prediction)
  * @method void expect($prediction)
  * @method void amGoingTo($argumentation)
@@ -18,6 +20,7 @@ namespace Psalm\MockeryPlugin\Tests;
 class AcceptanceTester extends \Codeception\Actor
 {
     use _generated\AcceptanceTesterActions;
+
    /**
     * Define custom actions here
     */
