@@ -26,6 +26,9 @@ jobs:
               with:
                 composer-options: "--prefer-dist"
 
+            - name: Build codeception helpers
+              run: vendor/bin/codecept build
+
             - name: Run Psalm
               run: vendor/bin/psalm --output-format=github --shepherd
 
