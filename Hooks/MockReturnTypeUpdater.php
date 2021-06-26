@@ -3,35 +3,20 @@
 namespace Psalm\MockeryPlugin\Hooks;
 
 use PhpParser;
-use Psalm\Codebase;
-use Psalm\CodeLocation;
-use Psalm\Context;
-use Psalm\FileManipulation;
-use Psalm\StatementsSource;
+use Psalm\Plugin\EventHandler\AfterMethodCallAnalysisInterface;
+use Psalm\Plugin\EventHandler\Event\AfterMethodCallAnalysisEvent;
 use Psalm\Type;
-use Psalm\Plugin\Hook;
 
-class MockReturnTypeUpdater implements Hook\AfterMethodCallAnalysisInterface
+class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
 {
     /**
      * Called after an expression has been checked
-     *
-     * @param  PhpParser\Node\Expr  $expr
-     * @param  Context              $context
-     * @param  string[]             $suppressed_issues
-     * @param  FileManipulation[]   $file_replacements
      */
-    public static function afterMethodCallAnalysis(
-        PhpParser\Node\Expr $expr,
-        string $method_id,
-        string $appearing_method_id,
-        string $declaring_method_id,
-        Context $context,
-        StatementsSource $statements_source,
-        Codebase $codebase,
-        array &$file_replacements = [],
-        Type\Union &$return_type_candidate = null
-    ): void {
+    public static function afterMethodCallAnalysis(AfterMethodCallAnalysisEvent $event): void
+    {
+        $return_type_candidate = $event->getReturnTypeCandidate();
+        $expr = $event->getExpr();
+        $method_id = $event->getMethodId();
         if ($return_type_candidate && $method_id === 'Mockery::mock' && isset($expr->args[0])) {
             $first_arg = $expr->args[0]->value;
 
