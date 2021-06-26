@@ -11,7 +11,7 @@
     ],
     "require": {
         "mockery/mockery": "^0.9 || ^1.0",
-        "vimeo/psalm": "^4.0"
+        "vimeo/psalm": "^4.5"
     },
     "require-dev": {
         "codeception/codeception": "^4.0.3",
