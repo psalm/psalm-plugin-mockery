@@ -88,3 +88,19 @@ Feature: MockReturn
       """
     When I run Psalm
     Then I see no errors
+
+  Scenario: Class spying is recognized
+    Given I have the following code
+      """
+      class User
+      {
+      }
+      function foo(User $user): User
+      {
+          return $user;
+      }
+
+      $_user = foo(Mockery::spy(User::class));
+      """
+    When I run Psalm
+    Then I see no errors
