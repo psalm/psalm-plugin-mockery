@@ -17,7 +17,7 @@ class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
         $return_type_candidate = $event->getReturnTypeCandidate();
         $expr = $event->getExpr();
         $method_id = $event->getMethodId();
-        if ($return_type_candidate && $method_id === 'Mockery::mock' && isset($expr->args[0])) {
+        if ($return_type_candidate && self::isMockMethod($method_id) && isset($expr->args[0])) {
             $first_arg = $expr->args[0]->value;
 
             $fq_class_name = null;
@@ -64,5 +64,10 @@ class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
                 }
             }
         }
+    }
+
+    private static function isMockMethod(string $method_id): bool
+    {
+        return $method_id === 'Mockery::mock' || $method_id === 'Mockery::spy';
     }
 }
