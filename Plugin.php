@@ -12,6 +12,19 @@ class Plugin implements PluginEntryPointInterface
     {
         $registration->addStubFile(__DIR__ . '/stubs/Mockery.php');
 
+        $this->loadPhpUnitIntegration($registration);
+
+        require_once __DIR__ . '/Hooks/MockReturnTypeUpdater.php';
+        $registration->registerHooksFromClass(Hooks\MockReturnTypeUpdater::class);
+    }
+
+    private function loadPhpUnitIntegration(RegistrationInterface $registration): void
+    {
+        // Mockery doesn't do any funny stuff with trait aliases since v1.4
+        if (VersionUtils::packageVersionIs('mockery/mockery', '>=', '1.4')) {
+            return;
+        }
+
         if (
             class_exists('PHPUnit_Framework_TestCase')
             || (class_exists('\PHPUnit\Runner\Version')
@@ -25,8 +38,5 @@ class Plugin implements PluginEntryPointInterface
         ) {
             $registration->addStubFile(__DIR__ . '/stubs/Mockery/AssertPostConditionsV8.php');
         }
-
-        require_once __DIR__ . '/Hooks/MockReturnTypeUpdater.php';
-        $registration->registerHooksFromClass(Hooks\MockReturnTypeUpdater::class);
     }
 }

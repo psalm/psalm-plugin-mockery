@@ -10,9 +10,11 @@
         }
     ],
     "require": {
+        "php": "~7.4 || ~8.0 || ~8.1 || ~8.2",
+        "composer/package-versions-deprecated": "^1.10",
+        "composer/semver": "^1.4 || ^2.0 || ^3.0",
         "mockery/mockery": "^1.0",
-        "vimeo/psalm": "dev-master || ^5@beta || ^5.0",
-        "php" : "~7.4 || ~8.0 || ~8.1 || ~8.2"
+        "vimeo/psalm": "dev-master || ^5@beta || ^5.0"
     },
     "require-dev": {
         "codeception/codeception": "^4.1.9",
@@ -49,6 +51,8 @@
     "config": {
         "allow-plugins": {
             "composer/package-versions-deprecated": true
-        }
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true
     }
 }
