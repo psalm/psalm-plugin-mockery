@@ -55,7 +55,7 @@ Feature: PHPUnitIntegration
              */
             public function testSomething()
             {
-                $mock = Mockery::mock(\ArrayAccess::class);
+                $_mock = Mockery::mock(\ArrayAccess::class);
             }
         }
         """
