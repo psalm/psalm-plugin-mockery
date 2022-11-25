@@ -11,7 +11,7 @@
     ],
     "require": {
         "mockery/mockery": "^0.9 || ^1.0",
-        "vimeo/psalm": "dev-master || dev-4.x || ^4.5 || ^5@beta"
+        "vimeo/psalm": "dev-master || dev-4.x || ^4.7.1 || ^5@beta"
     },
     "require-dev": {
         "codeception/codeception": "^4.0.3",
@@ -44,5 +44,10 @@
         "cs-check": "phpcs -s",
         "cs-fix": "phpcbf",
         "test": "codecept run -v"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
     }
 }
