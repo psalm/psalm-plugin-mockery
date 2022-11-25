@@ -104,3 +104,37 @@ Feature: MockReturn
       """
     When I run Psalm
     Then I see no errors
+
+  Scenario: New style stubbing
+    Given I have the following code
+      """
+      class User
+      {
+        public function doThings(): int { return 10; }
+      }
+
+      function f(): int {
+        $mock = Mockery::mock(User::class);
+        $mock->allows()->doThings()->andReturns(1);
+        return $mock->doThings();
+      }
+      """
+    When I run Psalm
+    Then I see no errors
+
+  Scenario: New style mocking
+    Given I have the following code
+      """
+      class User
+      {
+        public function doThings(): int { return 10; }
+      }
+
+      function f(): int {
+        $mock = Mockery::mock(User::class);
+        $mock->expects()->doThings()->andReturns(1);
+        return $mock->doThings();
+      }
+      """
+    When I run Psalm
+    Then I see no errors
