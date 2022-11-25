@@ -14,7 +14,7 @@
         "composer/package-versions-deprecated": "^1.10",
         "composer/semver": "^1.4 || ^2.0 || ^3.0",
         "mockery/mockery": "^1.0",
-        "vimeo/psalm": "dev-master || ^5@beta || ^5.0"
+        "vimeo/psalm": "dev-master || ^5.0@rc || ^5.0"
     },
     "require-dev": {
         "codeception/codeception": "^4.1.9",
