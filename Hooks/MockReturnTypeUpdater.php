@@ -65,8 +65,15 @@ class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
             if ($fq_class_name) {
                 foreach ($return_type_candidate->getAtomicTypes() as $return_atomic_type) {
                     if ($return_atomic_type instanceof Type\Atomic\TNamedObject) {
-                        $return_atomic_type->value = 'Mockery\MockInterface';
-                        $return_atomic_type->addIntersectionType(new Type\Atomic\TNamedObject($fq_class_name));
+                        $new_return_type = $return_type_candidate->getBuilder();
+                        $new_return_type->removeType($return_atomic_type->getId());
+
+                        $return_atomic_type = $return_atomic_type
+                            ->setValue('Mockery\MockInterface')
+                            ->addIntersectionType(new Type\Atomic\TNamedObject($fq_class_name))
+                        ;
+
+                        $event->setReturnTypeCandidate($new_return_type->addType($return_atomic_type)->freeze());
                         break;
                     }
                 }
