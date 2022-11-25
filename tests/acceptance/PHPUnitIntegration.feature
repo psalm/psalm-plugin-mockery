@@ -43,22 +43,3 @@ Feature: PHPUnitIntegration
     And I have the "mockery/mockery" package satisfying the "^1.0"
     When I run Psalm
     Then I see no errors
-
-  Scenario: Plugin stubs don't conflict with Mockery 0.9.x
-      Given I have the following code
-        """
-        /** @psalm-suppress PropertyNotSetInConstructor */
-        class MyTestCase extends TestCase
-        {
-            /**
-             * @return void
-             */
-            public function testSomething()
-            {
-                $_mock = Mockery::mock(\ArrayAccess::class);
-            }
-        }
-        """
-      And I have the "mockery/mockery" package satisfying the "< 1.0"
-      When I run Psalm
-      Then I see no errors
