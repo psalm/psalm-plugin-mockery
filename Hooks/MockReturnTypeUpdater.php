@@ -3,6 +3,7 @@
 namespace Psalm\MockeryPlugin\Hooks;
 
 use PhpParser;
+use PhpParser\Node\Arg;
 use Psalm\Plugin\EventHandler\AfterMethodCallAnalysisInterface;
 use Psalm\Plugin\EventHandler\Event\AfterMethodCallAnalysisEvent;
 use Psalm\Type;
@@ -17,7 +18,11 @@ class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
         $return_type_candidate = $event->getReturnTypeCandidate();
         $expr = $event->getExpr();
         $method_id = $event->getMethodId();
-        if ($return_type_candidate && self::isMockMethod($method_id) && isset($expr->args[0])) {
+        if ($return_type_candidate
+            && self::isMockMethod($method_id)
+            && isset($expr->args[0])
+            && $expr->args[0] instanceof Arg
+        ) {
             $first_arg = $expr->args[0]->value;
 
             $fq_class_name = null;
@@ -27,6 +32,7 @@ class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
                 && $first_arg->name instanceof PhpParser\Node\Identifier
                 && $first_arg->name->name === 'class'
             ) {
+                /** @var class-string */
                 $fq_class_name = $first_arg->class->getAttribute('resolvedName');
             } elseif (
                 $first_arg instanceof PhpParser\Node\Expr\BinaryOp\Concat
@@ -36,22 +42,23 @@ class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
                 && $first_arg->right instanceof PhpParser\Node\Scalar\String_
                 && $first_arg->right->value[0] === '['
             ) {
-                /** @var PhpParser\Node\Expr\ClassConstFetch $left */
                 $left = $first_arg->left;
+                /** @var class-string */
                 $fq_class_name = $left->class->getAttribute('resolvedName');
             } elseif ($first_arg instanceof PhpParser\Node\Scalar\String_) {
-                if (substr($first_arg->value, 0, 6) === 'alias:') {
-                    $trimmed_value = substr($first_arg->value, 6);
+                $value = $first_arg->value;
+                if (substr($value, 0, 6) === 'alias:') {
+                    $value = substr($value, 6);
                 } elseif (substr($first_arg->value, 0, 9) === 'overload:') {
-                    $trimmed_value = substr($first_arg->value, 9);
+                    $value = substr($value, 9);
                 }
 
-                $bracket_position = strpos($first_arg->value, '[');
-                $fq_class_name = substr(
-                    (!isset($trimmed_value) || $trimmed_value === false) ? $first_arg->value : $trimmed_value,
-                    0,
-                    $bracket_position === false ? strlen($first_arg->value) : $bracket_position
-                );
+                $bracket_position = strpos($value, '[');
+                if ($bracket_position !== false) {
+                    $fq_class_name = substr($value, 0, $bracket_position);
+                } else {
+                    $fq_class_name = $value;
+                }
             }
 
             if ($fq_class_name) {
