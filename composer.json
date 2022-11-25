@@ -10,14 +10,15 @@
         }
     ],
     "require": {
-        "mockery/mockery": "^0.9 || ^1.0",
-        "vimeo/psalm": "dev-master || dev-4.x || ^4.7.1 || ^5@beta"
+        "mockery/mockery": "^1.0",
+        "vimeo/psalm": "dev-master || ^5@beta || ^5.0",
+        "php" : "~7.4 || ~8.0 || ~8.1 || ~8.2"
     },
     "require-dev": {
-        "codeception/codeception": "^4.0.3",
+        "codeception/codeception": "^4.1.9",
         "squizlabs/php_codesniffer": "^3.3.1",
         "weirdan/codeception-psalm-module": "^0.13.1",
-        "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0"
+        "phpunit/phpunit": "^9.0"
     },
     "extra": {
         "psalm": {
