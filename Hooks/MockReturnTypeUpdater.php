@@ -18,7 +18,8 @@ class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
         $return_type_candidate = $event->getReturnTypeCandidate();
         $expr = $event->getExpr();
         $method_id = $event->getMethodId();
-        if ($return_type_candidate
+        if (
+            $return_type_candidate
             && self::isMockMethod($method_id)
             && isset($expr->args[0])
             && $expr->args[0] instanceof Arg
