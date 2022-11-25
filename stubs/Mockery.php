@@ -55,9 +55,6 @@ namespace
 
 namespace Mockery
 {
-    use Mockery\HigherOrderMessage;
-    use Mockery\MockInterface;
-    use Mockery\ExpectsHigherOrderMessage;
     use Mockery\Exception\BadMethodCallException;
 
     class Mock implements MockInterface
@@ -99,13 +96,13 @@ namespace Mockery
          *
          * @param mixed ...$methodNames one or many methods that are expected to be called in this mock
          *
-         * @return \Mockery\ExpectationInterface&static
+         * @return ExpectationInterface&static
          */
         public function shouldReceive(...$methodNames);
 
         /**
-         * @param mixed $something  String method name (optional)
-         * @return \Mockery\ExpectationInterface&static
+         * @param mixed $something
+         * @return ($something is string ? ExpectationInterface : ExpectsHigherOrderMessage)
          */
         public function expects($something = null);
 
@@ -114,7 +111,7 @@ namespace Mockery
          *
          * @param mixed ...$methodNames one or many methods that are expected to be called in this mock
          *
-         * @return \Mockery\ExpectationInterface&static
+         * @return ExpectationInterface&static
          */
         public function shouldNotReceive(...$methodNames);
 
@@ -127,6 +124,12 @@ namespace Mockery
          * @return static
          */
         public function shouldAllowMockingProtectedMethods();
+
+        /**
+         * @param mixed $something
+         * @return ($something is string ? ExpectationInterface : ($something is list{} ? HigherOrderMessage : static))
+         */
+        public function allows($something = []);
     }
 
     /**
@@ -139,6 +142,12 @@ namespace Mockery
          * @return static
          */
         public function andReturn(...$args);
+
+        /**
+         * @param mixed ...$args
+         * @return static
+         */
+        public function andReturns(...$args);
 
          /**
          * Set a sequential queue of return values with an array
@@ -287,6 +296,47 @@ namespace Mockery
          * @return static
          */
         public function withArgs($argsOrClosure)
+        {
+        }
+    }
+
+    /**
+     * we need a docblock here, otherwise Psalm looks into original one,
+     * sees method tag there and starts emitting UndefinedMagicMethod
+     */
+    class HigherOrderMessage
+    {
+        public function __construct(MockInterface $mock, $method)
+        {
+        }
+
+        public function withArgs(\Closure|array $args): Expectation
+        {
+        }
+
+        /**
+         * @return \Mockery\Expectation
+         */
+        public function __call($method, $args)
+        {
+        }
+    }
+
+    /**
+     * we need a docblock here, otherwise Psalm looks into original one, sees
+     * that it extends HigherOrderMessage, looks into original
+     * HigherOrderMessagemethod dockblock, sees method tag there and starts
+     * emitting UndefinedMagicMethod
+     */
+    class ExpectsHigherOrderMessage extends HigherOrderMessage
+    {
+        public function __construct(MockInterface $mock)
+        {
+        }
+        /**
+         * @return \Mockery\Expectation
+         */
+        public function __call($method, $args)
         {
         }
     }
