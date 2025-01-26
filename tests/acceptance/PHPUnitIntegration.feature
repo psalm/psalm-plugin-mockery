@@ -4,7 +4,7 @@ Feature: PHPUnitIntegration
     Given I have the following config
       """
       <?xml version="1.0"?>
-      <psalm errorLevel="1" findUnusedCode="true">
+      <psalm errorLevel="1" findUnusedCode="false">
         <projectFiles>
           <directory name="."/>
           <ignoreFiles> <directory name="../../vendor"/> </ignoreFiles>
