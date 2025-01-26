@@ -44,8 +44,8 @@ Feature: MockReturn
       """
     When I run Psalm
     Then I see these errors
-      | Type                      | Message                                                                                                   |
-      | DocblockTypeContradiction | / type Mockery\\MockInterface&NS\\User (does not contain array<[^,]+, mixed>\|for \$user is never array)/ |
+      | Type                      | Message                                                                                                |
+      | DocblockTypeContradiction | Docblock-defined type Mockery\MockInterface&NS\User for $user is never array<array-key, mixed>         |
     And I see no other errors
 
   Scenario: Alias class mocking is recognized
