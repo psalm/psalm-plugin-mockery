@@ -2,9 +2,9 @@
 
 namespace Psalm\MockeryPlugin;
 
+use Composer\InstalledVersions;
 use Composer\Semver\Comparator;
 use Composer\Semver\VersionParser;
-use PackageVersions\Versions;
 
 abstract class VersionUtils
 {
@@ -12,15 +12,12 @@ abstract class VersionUtils
     public static function packageVersionIs(string $package, string $op, string $ref): bool
     {
         try {
-            /**
-             * @psalm-suppress RedundantCondition
-             * @psalm-suppress DeprecatedClass
-             * @psalm-suppress ArgumentTypeCoercion
-             * @psalm-suppress RedundantCast
-             * @psalm-suppress RedundantCondition
-             */
-            $currentVersion = (string) explode('@', Versions::getVersion($package))[0];
+            $currentVersion = InstalledVersions::getVersion($package);
         } catch (\OutOfBoundsException $exception) {
+            return false;
+        }
+
+        if ($currentVersion === null) {
             return false;
         }
 
