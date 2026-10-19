@@ -6,8 +6,9 @@ use SimpleXMLElement;
 use Psalm\Plugin\PluginEntryPointInterface;
 use Psalm\Plugin\RegistrationInterface;
 
-class Plugin implements PluginEntryPointInterface
+final class Plugin implements PluginEntryPointInterface
 {
+    #[\Override]
     public function __invoke(RegistrationInterface $registration, ?SimpleXMLElement $config = null): void
     {
         $registration->addStubFile(__DIR__ . '/stubs/Mockery.php');
