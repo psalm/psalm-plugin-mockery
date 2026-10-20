@@ -12,13 +12,6 @@ Feature: PHPUnitIntegration
         <plugins>
           <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
         </plugins>
-        <issueHandlers>
-          <ClassMustBeFinal errorLevel="suppress" />
-          <MissingPureAnnotation errorLevel="suppress" />
-          <MissingAbstractPureAnnotation errorLevel="suppress" />
-          <MissingImmutableAnnotation errorLevel="suppress" />
-          <MissingInterfaceImmutableAnnotation errorLevel="suppress" />
-        </issueHandlers>
       </psalm>
       """
     And I have the following code preamble
@@ -34,12 +27,13 @@ Feature: PHPUnitIntegration
     Given I have the following code
       """
       /** @psalm-suppress PropertyNotSetInConstructor */
-      class MyTestCase extends TestCase
+      final class MyTestCase extends TestCase
       {
           use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
           /**
            * @return void
+           * @psalm-capabilities read-props
            */
           public function testSomething()
           {

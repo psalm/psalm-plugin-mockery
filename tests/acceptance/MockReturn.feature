@@ -12,13 +12,6 @@ Feature: MockReturn
         <plugins>
           <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
         </plugins>
-        <issueHandlers>
-          <ClassMustBeFinal errorLevel="suppress" />
-          <MissingPureAnnotation errorLevel="suppress" />
-          <MissingAbstractPureAnnotation errorLevel="suppress" />
-          <MissingImmutableAnnotation errorLevel="suppress" />
-          <MissingInterfaceImmutableAnnotation errorLevel="suppress" />
-        </issueHandlers>
       </psalm>
       """
     And I have the following code preamble
@@ -32,10 +25,12 @@ Feature: MockReturn
   Scenario: Defined method mocking sets proper intersection return type
     Given I have the following code
       """
-      class User
+      /** @psalm-immutable */
+      abstract class User
       {
           /**
            * @return void
+           * @psalm-capabilities read-props
            */
           public function someMethod()
           {
@@ -58,7 +53,8 @@ Feature: MockReturn
   Scenario: Alias class mocking is recognized
     Given I have the following code
       """
-      class User
+      /** @psalm-immutable */
+      final class User
       {
       }
 
@@ -70,7 +66,8 @@ Feature: MockReturn
   Scenario: Overload class mocking is recognized
     Given I have the following code
       """
-      class User
+      /** @psalm-immutable */
+      final class User
       {
       }
 
@@ -82,11 +79,11 @@ Feature: MockReturn
   Scenario: Expectations can be set on mocked instances
     Given I have the following code
       """
-      class User
+      /** @psalm-immutable */
+      interface User
       {
-          public function getName(): string {
-            return 'name';
-          }
+          /** @psalm-pure */
+          public function getName(): string;
       }
       $user = Mockery::mock(User::class);
       $user
@@ -99,9 +96,11 @@ Feature: MockReturn
   Scenario: Class spying is recognized
     Given I have the following code
       """
-      class User
+      /** @psalm-immutable */
+      interface User
       {
       }
+      /** @psalm-pure */
       function foo(User $user): User
       {
           return $user;
@@ -115,9 +114,11 @@ Feature: MockReturn
   Scenario: New style stubbing
     Given I have the following code
       """
-      class User
+      /** @psalm-immutable */
+      interface User
       {
-        public function doThings(): int { return 10; }
+        /** @psalm-pure */
+        public function doThings(): int;
       }
 
       function f(): int {
@@ -132,9 +133,11 @@ Feature: MockReturn
   Scenario: New style mocking
     Given I have the following code
       """
-      class User
+      /** @psalm-immutable */
+      interface User
       {
-        public function doThings(): int { return 10; }
+        /** @psalm-pure */
+        public function doThings(): int;
       }
 
       function f(): int {
