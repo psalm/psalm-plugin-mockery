@@ -12,6 +12,13 @@ Feature: PHPUnitIntegration
         <plugins>
           <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
         </plugins>
+        <issueHandlers>
+          <ClassMustBeFinal errorLevel="suppress" />
+          <MissingPureAnnotation errorLevel="suppress" />
+          <MissingAbstractPureAnnotation errorLevel="suppress" />
+          <MissingImmutableAnnotation errorLevel="suppress" />
+          <MissingInterfaceImmutableAnnotation errorLevel="suppress" />
+        </issueHandlers>
       </psalm>
       """
     And I have the following code preamble

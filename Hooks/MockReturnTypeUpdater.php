@@ -8,11 +8,12 @@ use Psalm\Plugin\EventHandler\AfterMethodCallAnalysisInterface;
 use Psalm\Plugin\EventHandler\Event\AfterMethodCallAnalysisEvent;
 use Psalm\Type;
 
-class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
+final class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
 {
     /**
      * Called after an expression has been checked
      */
+    #[\Override]
     public static function afterMethodCallAnalysis(AfterMethodCallAnalysisEvent $event): void
     {
         $return_type_candidate = $event->getReturnTypeCandidate();
@@ -81,6 +82,9 @@ class MockReturnTypeUpdater implements AfterMethodCallAnalysisInterface
         }
     }
 
+    /**
+     * @psalm-pure
+     */
     private static function isMockMethod(string $method_id): bool
     {
         return $method_id === 'Mockery::mock' || $method_id === 'Mockery::spy';
