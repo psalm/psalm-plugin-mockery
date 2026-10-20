@@ -20,8 +20,8 @@
     "require-dev": {
         "codeception/codeception": "^5.0",
         "squizlabs/php_codesniffer": "^3.3.1",
-        "weirdan/codeception-psalm-module": "^0.14",
-        "phpunit/phpunit": "^9.0"
+        "weirdan/codeception-psalm-module": "^0.14.1",
+        "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0 || ^13.0"
     },
     "extra": {
         "psalm": {
