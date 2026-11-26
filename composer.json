@@ -1,20 +1,24 @@
 {
     "name": "psalm/plugin-mockery",
     "description": "Psalm plugin for Mockery",
-    "type": "psalm-plugin",
     "license": "MIT",
+    "type": "psalm-plugin",
     "authors": [
         {
             "name": "Matt Brown",
             "email": "github@muglug.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/psalm/psalm-plugin-mockery/issues",
+        "source": "https://github.com/psalm/psalm-plugin-mockery"
+    },
     "require": {
         "php": ">=8.1",
         "composer-runtime-api": "^2.0",
         "composer/semver": "^1.4 || ^2.0 || ^3.0",
         "psalm/psalm-plugin-api": "^0.4 || ^0.5",
-        "vimeo/psalm": "^7|dev-master"
+        "vimeo/psalm": "^7 || dev-master"
     },
     "require-dev": {
         "codeception/codeception": "^5.0",
@@ -26,31 +30,19 @@
     "conflict": {
         "mockery/mockery": "<1.0"
     },
-    "extra": {
-        "psalm": {
-            "pluginClass": "Psalm\\MockeryPlugin\\Plugin"
-        }
-    },
     "autoload": {
         "psr-4": {
-            "Psalm\\MockeryPlugin\\": ["."]
+            "Psalm\\MockeryPlugin\\": [
+                "."
+            ]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Psalm\\MockeryPlugin\\Tests\\": ["tests/_support"]
+            "Psalm\\MockeryPlugin\\Tests\\": [
+                "tests/_support"
+            ]
         }
-    },
-    "scripts" : {
-        "check": [
-            "@cs-check",
-            "@test",
-            "@analyze"
-        ],
-        "analyze": "psalm",
-        "cs-check": "phpcs -s",
-        "cs-fix": "phpcbf",
-        "test": "codecept run -v"
     },
     "config": {
         "allow-plugins": {
@@ -58,5 +50,21 @@
         },
         "optimize-autoloader": true,
         "sort-packages": true
+    },
+    "extra": {
+        "psalm": {
+            "pluginClass": "Psalm\\MockeryPlugin\\Plugin"
+        }
+    },
+    "scripts": {
+        "analyze": "psalm",
+        "check": [
+            "@cs-check",
+            "@test",
+            "@analyze"
+        ],
+        "cs-check": "phpcs -s",
+        "cs-fix": "phpcbf",
+        "test": "codecept run -v"
     }
 }
